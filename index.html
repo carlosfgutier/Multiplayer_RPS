@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Rock, Paper, Scissors Online</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link href="https://fonts.googleapis.com/css?family=Dosis:800" rel="stylesheet">
@@ -15,32 +16,59 @@
 		</header>
 
 		<section id="referee">
-			<p>Referee</p>
+			<p id="welcomeMessage">Welcome to Rock, Paper, Scissors Online.</p>
 			<br>
-			<p>It's your turn</p>
+			<p id="waitMessage">Pick a side while you wait for an opponent</p>
 		</section>
 
 		<section id="main">
 			<div id="blueSquare">
-				<p>Player 1</p>
+
+				<p class="wins" id="winsp1">Wins: #</p>
+				<p class="P1">Player 1</p>
+				<p class="losses" id="lossesp1">Losses: #</p>
+
 				<br>
-				<input type="text" name="player1">
+
+				<input id="inputP1" type="text" name="player1" placeholder="Choose a name">
 				<br>
-				<button>ready!</button>
+				<button id="buttonP1">ready!</button>
+				
+				<div class="weapons">
+					<img class="weaponImage" id="rock1" src="assets/images/rock.png">
+					<img class="weaponImage" id="paper1" src="assets/images/paper.ico">
+					<img class="weaponImage" id="scissors1" src="assets/images/scissors.png">
+				</div>
+
 			</div>
-			<div id="yellowSquare">It's a tie</div>
+			
+			<div id="yellowSquare">Battleboard</div>
+			
 			<div id="redSquare">
-				<p>Player 2</p>
+				
+				<p class="wins" id="winsp2">Wins: #</p>
+				<p class="P2">Player 2</p>
+				<p class="losses" id="lossesp2">Losses: #</p>
+
 				<br>
-				<input type="text" name="player2">
+				<input id="inputP2" type="text" name="player2" placeholder="Choose a name">
 				<br>
-				<button>ready!</button>
+				<button id="buttonP2">ready!</button>
+				
+				<div class="weapons">
+					<img class="weaponImage" id="rock2" src="assets/images/rock.png">
+					<img class="weaponImage" id="paper2" src="assets/images/paper.ico">
+					<img class="weaponImage" id="scissors2" src="assets/images/scissors.png">
+				</div>
+			
 			</div>
 		</section>
 
 		<aside id="chatarea">
-			<div id="chatwindow">messages appear here</div>
-			<input id="chatbox" type="text" name="chat">
+			<div id="chatwindow">
+				<p>messages appear here</p>
+			</div>
+			<input id="chatbox" type="text" name="chat" >
 			<button>send</button>
 		</aside>
 

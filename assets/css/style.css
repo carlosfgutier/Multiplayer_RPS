@@ -1,3 +1,26 @@
+/*GAME ELEMENTS
+------------------------------------*/
+.weapons {position: absolute;
+	bottom: 3px;
+	left: 10px;
+	right: 10px;
+}
+
+.weaponImage {width: 40px;
+	height: auto;
+	display: inline-table;
+	margin: 10px 25px;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+.weaponImage:hover {transform: scale(1.5, 1.5);
+
+}
+
+
+/*INITIAL HTML
+---------------------------------------*/
 body {background-color: #F5F5F5;
 }
 
@@ -5,8 +28,8 @@ body {background-color: #F5F5F5;
 }
 
 header {width: 100%;
-	background-color: #F5F5F5;
-	color: black;
+	background-color: #3284FF;
+	color: #F5F5F5;
 	font-family: 'Dosis', sans-serif;
 	font-size: 50px;
 	text-align: center;
@@ -33,7 +56,7 @@ header {width: 100%;
 
 #main {width: 100%;
 	background-color: #F5F5F5;
-	color: black;
+	color: #F5F5F5;
 	font-family: 'Dosis', sans-serif;
 	padding: 28px 0;
 	text-align: center;
@@ -49,7 +72,9 @@ header {width: 100%;
 	font-size: 25px;
 	justify-content: center;
 	padding: 10px;
+	position: relative;
 }
+
 
 #yellowSquare {width: 350px;
 	height: 350px;
@@ -69,6 +94,25 @@ header {width: 100%;
 	font-size: 25px;
 	justify-content: center;
 	padding: 10px;
+	position: relative;
+}
+
+.P1{text-decoration: underline;
+}
+
+.P2{text-decoration: underline;
+}
+
+.wins {position: absolute;
+	top: 10px;
+	left: 15px;
+	font-size: 20px;
+}
+
+.losses {position: absolute;
+	top: 10px;
+	right: 15px;
+	font-size: 20px;
 }
 
 #chatarea {text-align: center;
@@ -83,6 +127,8 @@ header {width: 100%;
 	border-width: 1px;
 	border-style: solid;
 	border-color: #3284FF;
+	text-align: left;
+	padding: 0 20px;
 
 }
 
