@@ -4,6 +4,10 @@ var P2status = false;
 
 var P1name;
 var P2name;
+
+var rock = "rock";
+var paper = "paper";
+var scissors = "scissors";
 //-------------------
 
 $(document).ready(function(){
@@ -57,9 +61,26 @@ $("#buttonP2").on("click", function() {
 	}
 });
 
+$("#blueSquare").on("click", ".weaponImage", function() {
+	console.log(this);
+	var choice = (this).val().trim();
+	console.log(choice);
+	if (choice === rock) {
+		alert("heya");
+	}
+});
+
+
 
 //CHAT
 //-------------------//
+var message;
+
+$("#send").on("click", function() {
+	message = $("#inputChat").val().trim();
+	$("#chatwindow").append("<p>" + message + "</p>");
+	$("#inputChat").val("");
+});
 
 
 

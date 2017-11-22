@@ -119,7 +119,7 @@ header {width: 100%;
 	background-color: #F5F5F5;
 }
 
-#chatwindow {width: 80%;
+#chatwindow {width: 77%;
 	height: 100px;
 	margin: 0 10%;
 	background-color: white;
@@ -129,10 +129,10 @@ header {width: 100%;
 	border-color: #3284FF;
 	text-align: left;
 	padding: 0 20px;
-
+	overflow-y: auto;
 }
 
-#chatbox {width: 76%;
+#inputChat {width: 76%;
 	margin: 10px 0 ;
 }
 

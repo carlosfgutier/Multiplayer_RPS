@@ -12,13 +12,13 @@
 	<div id="container">
 
 		<header>
-			<p>Rock, Paper, Scissors</p><img class="topImage" src="assets/images/rock.png"><img class="topImage" src="assets/images/paper.ico"><img class="topImage" src="assets/images/scissors.png"><img class="topImage" src="assets/images/rock.png"><img class="topImage" src="assets/images/paper.ico"><img class="topImage" src="assets/images/scissors.png">
+			<p>Rock, Paper, Scissors</p><img class="topImage" src="assets/images/rock.png"><img class="topImage" src="assets/images/paper.png"><img class="topImage" src="assets/images/scissors.png"><img class="topImage" src="assets/images/rock.png"><img class="topImage" src="assets/images/paper.png"><img class="topImage" src="assets/images/scissors.png"><img class="topImage" src="assets/images/rock.png"><img class="topImage" src="assets/images/paper.png"><img class="topImage" src="assets/images/scissors.png"><img class="topImage" src="assets/images/rock.png"><img class="topImage" src="assets/images/paper.png"><img class="topImage" src="assets/images/scissors.png"><img class="topImage" src="assets/images/rock.png"><img class="topImage" src="assets/images/paper.png"><img class="topImage" src="assets/images/scissors.png"><img class="topImage" src="assets/images/rock.png"><img class="topImage" src="assets/images/paper.png"><img class="topImage" src="assets/images/scissors.png"><img class="topImage" src="assets/images/rock.png"><img class="topImage" src="assets/images/paper.png">
 		</header>
 
 		<section id="referee">
 			<p id="welcomeMessage">Welcome to Rock, Paper, Scissors Online.</p>
 			<br>
-			<p id="waitMessage">Pick a side while you wait for an opponent</p>
+			<p id="waitMessage">Choose a nickname while you wait for an opponent</p>
 		</section>
 
 		<section id="main">
@@ -35,9 +35,9 @@
 				<button id="buttonP1">ready!</button>
 				
 				<div class="weapons">
-					<img class="weaponImage" id="rock1" src="assets/images/rock.png">
-					<img class="weaponImage" id="paper1" src="assets/images/paper.ico">
-					<img class="weaponImage" id="scissors1" src="assets/images/scissors.png">
+					<img class="weaponImage" id="rock1" value="rock" src="assets/images/rock.png">
+					<img class="weaponImage" id="paper1" value="paper" src="assets/images/paper.png">
+					<img class="weaponImage" id="scissors1" value="scissors" src="assets/images/scissors.png">
 				</div>
 
 			</div>
@@ -56,26 +56,24 @@
 				<button id="buttonP2">ready!</button>
 				
 				<div class="weapons">
-					<img class="weaponImage" id="rock2" src="assets/images/rock.png">
-					<img class="weaponImage" id="paper2" src="assets/images/paper.ico">
-					<img class="weaponImage" id="scissors2" src="assets/images/scissors.png">
+					<img class="weaponImage" id="rock2" value="rock" src="assets/images/rock.png">
+					<img class="weaponImage" id="paper2" value="paper" src="assets/images/paper.png">
+					<img class="weaponImage" id="scissors2" value="scissors" src="assets/images/scissors.png">
 				</div>
 			
 			</div>
 		</section>
 
 		<aside id="chatarea">
+			
 			<div id="chatwindow">
-				<p>messages appear here</p>
 			</div>
-			<input id="chatbox" type="text" name="chat" >
-			<button>send</button>
+			
+			<input id="inputChat" type="text" name="chat" value="">
+			<button id="send">send</button>
 		</aside>
 
 	</div>
-
-
-
 
 	<footer>Copyright © 2017 <a class="footer" href="https://github.com/carlosfgutier" target="_blank">Carlosfgutier</footer>
 
