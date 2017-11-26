@@ -2,6 +2,8 @@
 <html>
 <head>
 	<title>Rock, Paper, Scissors Online</title>
+
+	<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
@@ -34,7 +36,7 @@
 				<br>
 				<button id="buttonP1">ready!</button>
 				
-				<div class="weapons">
+				<div class="weapons weapons1">
 					<img class="weaponImage rock" id="rock1" value="rock" src="assets/images/rock.png">
 					<img class="weaponImage paper" id="paper1" value="paper" src="assets/images/paper.png">
 					<img class="weaponImage scissors" id="scissors1" value="scissors" src="assets/images/scissors.png">
@@ -45,9 +47,12 @@
 			<div id="yellowSquare">
 				<p>Battleboard</p>
 				<br>
-				<p id="results">End of match results</p>
+				<p id="results"></p>
 				<br>
 				<div id="contenders">
+					<p id="P1contender"></p>
+					<p id="versus">VS</p>
+					<p id="P2contender"></p>
 				</div>
 			</div>
 			
@@ -62,7 +67,7 @@
 				<br>
 				<button id="buttonP2">ready!</button>
 				
-				<div class="weapons">
+				<div class="weapons weapons2">
 					<img class="weaponImage rock" id="rock2" value="rock" src="assets/images/rock.png">
 					<img class="weaponImage paper" id="paper2" value="paper" src="assets/images/paper.png">
 					<img class="weaponImage scissors" id="scissors2" value="scissors" src="assets/images/scissors.png">

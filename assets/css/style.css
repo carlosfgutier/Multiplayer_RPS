@@ -24,6 +24,14 @@
 .weaponImage:hover {transform: scale(1.5, 1.5);
 }
 
+#versus {margin: 20px 0;
+}
+
+#results {text-decoration: underline;
+	margin-bottom: 40px;
+
+}
+
 /*INITIAL HTML
 ---------------------------------------*/
 body {background-color: #F5F5F5;
