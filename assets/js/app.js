@@ -11,18 +11,21 @@ var config = {
 firebase.initializeApp(config);
 var database = firebase.database();
 
-
 //CHECK FOR CONNECTION
+var connectedRef1;
+var connectedRef2;
+
 var connectionRef1 = database.ref("/connection1");
 var connectionRef2 = database.ref("/connection2");
+
+//FIREBASE
+var playerInfo1 = database.ref("/connection1/playerInfo1");
+var playerInfo2 = database.ref("connection2/playerInfo2");
 
 var connectedRef = database.ref(".info/connected");
 var con;
 
-//GLOBAL VARIABLES
-var connectedRef1;
-var connectedRef2;
-
+//OTHER VARIABLES
 var P1name;
 var P2name;
 
@@ -41,11 +44,12 @@ var Player1 = {
 		Wins: P1wins,
 		Losses: P1losses,
 	}
+
 var Player2 = {
-		Name: P2name,
-		Wins: P2wins,
-		Losses: P2losses,
-	}
+	Name: P2name,
+	Wins: P2wins,
+	Losses: P2losses,
+}
 
 var timeoutVar = function(){
 	setTimeout(reset, 2000);
@@ -69,7 +73,6 @@ $("#buttonP1").on("click", function() {
 		
 		//create name for p1
 		P1name = $("#inputP1").val().trim();
-		$(".P1").text(P1name);
 
 		$("#inputP1").hide();
 		$("#buttonP1").hide();
@@ -86,11 +89,18 @@ $("#buttonP1").on("click", function() {
 		if (snap.val()) {
 			con = connectionRef1.push(true);
 			con.onDisconnect().remove();
+			playerInfo1.onDisconnect().remove();
+			//update score, player name and push to firebase
 			updateScoreP1();
 		}
 	});
 
-	//GRAB P1 NAME FROM DATABASE AND ADD TO HTML
+	// GRAB P1 NAME FROM DATABASE AND ADD TO HTML
+	playerInfo1.on("value", function(snap) {
+		console.log(snap.val().Name)
+		playerName1 = (snap.val().Name);
+		$(".P1").text(playerName1);
+	});
 });
 
 //P2 ENTERS
@@ -123,10 +133,18 @@ $("#buttonP2").on("click", function() {
 		if (snap.val()) {
 			con = connectionRef2.push(true);
 			con.onDisconnect().remove();
+			playerInfo2.onDisconnect().remove();
 			updateScoreP2();
 		}
 	});
+
 	//GRAB P2 NAME FROM DATABASE AND ADD TO HTML
+	var playerName2 = database.ref("/connection2/playerInfo2")
+	
+	playerName2.on("value", function(snap) {
+		console.log(snap.val().Name);
+		$(".P2").text(snap.val().Name);
+	});
 });
 
 //ROCK, PAPER, SCISSORS
@@ -261,26 +279,18 @@ $("#send").on("click", function(event) {
 	event.preventDefault();
 
 	var message = $("#inputChat").val().trim();
-
 	var newMessage = {
 		content: message,
 	};
 
 	database.ref().push(newMessage);
-
-	console.log(newMessage.content);
 });
 
 database.ref().on("child_added", function(childSnapshot, PrevChildKey) {
 
-	console.log(childSnapshot.val());
-
-
 //make first two messages that appear welcome player one and player two as they enter
 
 	var newMessage = childSnapshot.val().content;
-
-	console.log(newMessage)
 
 	$("#chatwindow").append("<p class='chatText'>" + newMessage + "</p>");
 	$("#chatwindow").animate({
@@ -297,7 +307,7 @@ function updateScoreP1() {
 		Losses: P1losses,
 	}
 
-	connectionRef1.push(Player1);
+	playerInfo1.set(Player1);
 };
 
 function updateScoreP2() {
@@ -307,7 +317,7 @@ function updateScoreP2() {
 		Losses: P2losses,
 	}
 
-	connectionRef2.push(Player2);
+	playerInfo2.set(Player2);
 };
 
 function updateScoresAll() {
