@@ -11,9 +11,17 @@ var config = {
 firebase.initializeApp(config);
 var database = firebase.database();
 
+
+//CHECK FOR CONNECTION
+var connectionRef1 = database.ref("/connection1");
+var connectionRef2 = database.ref("/connection2");
+
+var connectedRef = database.ref(".info/connected");
+var con;
+
 //GLOBAL VARIABLES
-var P1status = false;
-var P2status = false;
+var connectedRef1;
+var connectedRef2;
 
 var P1name;
 var P2name;
@@ -28,8 +36,20 @@ var rock = $("#rock1").attr("value");
 var paper = $("#paper1").attr("value");
 var scissors = $("#scissors1").attr("value");
 
-var Player1;
-var Player2;
+var Player1 = {
+		Name: P1name,
+		Wins: P1wins,
+		Losses: P1losses,
+	}
+var Player2 = {
+		Name: P2name,
+		Wins: P2wins,
+		Losses: P2losses,
+	}
+
+var timeoutVar = function(){
+	setTimeout(reset, 2000);
+}
 //------------------------//
 
 $(document).ready(function(){
@@ -46,7 +66,6 @@ $(document).ready(function(){
 //P1 ENTERS FUNCTION
 $("#buttonP1").on("click", function() {
 	if ($("#inputP1").val().trim() != "") {
-		P1status = true;
 		
 		//create name for p1
 		P1name = $("#inputP1").val().trim();
@@ -62,14 +81,21 @@ $("#buttonP1").on("click", function() {
 		$("#waitMessage").text("Please wait for an opponent");		
 	}
 
-	updateScoreP1();
-	//SEND SNAPSHOT
+	connectedRef.on("value", function(snap) {
+
+		if (snap.val()) {
+			con = connectionRef1.push(true);
+			con.onDisconnect().remove();
+			updateScoreP1();
+		}
+	});
+
+	//GRAB P1 NAME FROM DATABASE AND ADD TO HTML
 });
 
 //P2 ENTERS
 $("#buttonP2").on("click", function() {
 	if ($("#inputP2").val().trim() != "") {
-		P2status = true;
 		
 		//create name for p2
 		P2name = $("#inputP2").val().trim();
@@ -92,11 +118,18 @@ $("#buttonP2").on("click", function() {
 		$("#waitMessage").text(P1name + " you pick first");
 	}
 
-	updateScoreP2();
-	//SEND SNAPSHOT
+	connectedRef.on("value", function(snap) {
+
+		if (snap.val()) {
+			con = connectionRef2.push(true);
+			con.onDisconnect().remove();
+			updateScoreP2();
+		}
+	});
+	//GRAB P2 NAME FROM DATABASE AND ADD TO HTML
 });
 
-//PLAYERS CHOOSE WEAPON
+//ROCK, PAPER, SCISSORS
 //---------------------//
 var contender1;
 var contender2;
@@ -120,30 +153,33 @@ $("#redSquare").on("click", ".weaponImage", function() {
 		if (contender2 == rock) {
 			$("#P2contender").text(contender2);
 			$("#results").text("It's a tie");
-			//SEND SNAPSHOT
-			//WAIT & RESET FUNCTION
+			$("#waitMessage").text("It's a tie");
+			//SEND SNAPSHOT OF SCORE
+			timeoutVar();
 		}
 		else if (contender2 == paper) {
 			$("#P2contender").text(contender2);
 			$("#results").text(P2name + " wins");
+			$("#waitMessage").text(P2name + " wins");
 			P2wins++;
 			$("#winsp2").text("Wins: " + P2wins);
 			P1losses++;
 			$("#lossesp1").text("Losses: " + P1losses);
 			updateScoresAll();
 			//SEND SNAPSHOT
-			//WAIT & RESET FUNCTION
+			timeoutVar();
 		}
 		else if (contender2 == scissors) {
 			$("#P2contender").text(contender2);
 			$("#results").text(P1name + " wins");
+			$("#waitMessage").text(P1name + " wins");
 			P1wins++;
 			$("#winsp1").text("Wins: " + P1wins);
 			P2losses++;
 			$("#lossesp2").text("Losses: " + P2losses);
 			updateScoresAll();
 			//SEND SNAPSHOT
-			//WAIT & RESET FUNCTION
+			timeoutVar();
 		}
 		else {}
 	};
@@ -151,28 +187,33 @@ $("#redSquare").on("click", ".weaponImage", function() {
 		if (contender2 == paper) {
 			$("#P2contender").text(contender2);
 			$("#results").text("It's a tie");
+			$("#waitMessage").text("It's a tie");
+			//SEND SNAPSHOT
+			timeoutVar();
 		}
 		else if (contender2 == scissors) {
 			$("#P2contender").text(contender2);
 			$("#results").text(P2name + " wins");
+			$("#waitMessage").text(P2name + " wins");
 			P2wins++;
 			$("#winsp2").text("Wins: " + P2wins);
 			P1losses++;
 			$("#lossesp1").text("Losses: " + P1losses);
 			updateScoresAll();
 			//SEND SNAPSHOT
-			//WAIT & RESET FUNCTION
+			timeoutVar();
 		}
 		else if (contender2 == rock) {
 			$("#P2contender").text(contender2);
 			$("#results").text(P1name + " wins");
+			$("#waitMessage").text(P1name + " wins");
 			P1wins++;
 			$("#winsp1").text("Wins: " + P1wins);
 			P2losses++;
 			$("#lossesp2").text("Losses: " + P2losses);
 			updateScoresAll();
 			//SEND SNAPSHOT
-			//WAIT & RESET FUNCTION
+			timeoutVar();
 		}
 		else {}
 	};
@@ -180,46 +221,72 @@ $("#redSquare").on("click", ".weaponImage", function() {
 		if (contender2 == scissors) {
 			$("#P2contender").text(contender2);
 			$("#results").text("It's a tie");
+			$("#waitMessage").text("It's a tie");
+			//SEND SNAPSHOT
+			timeoutVar();
 		}
 		else if (contender2 == rock) {
 			$("#P2contender").text(contender2);
 			$("#results").text(P2name + " wins");
+			$("#waitMessage").text(P2name + " wins");
 			P2wins++;
 			$("#winsp2").text("Wins: " + P2wins);
 			P1losses++;
 			$("#lossesp1").text("Losses: " + P1losses);
 			updateScoresAll();
 			//SEND SNAPSHOT
-			//WAIT & RESET FUNCTION
+			timeoutVar();
 		}
 		else if (contender2 == paper) {
 			$("#P2contender").text(contender2);
 			$("#results").text(P1name + " wins");
+			$("#waitMessage").text(P1name + " wins");
 			P1wins++;
 			$("#winsp1").text("Wins: " + P1wins);
 			P2losses++;
 			$("#lossesp2").text("Losses: " + P2losses);
 			updateScoresAll();
 			//SEND SNAPSHOT
-			//WAIT & RESET FUNCTION
+			timeoutVar();
 		}
 		else {}
 	};
 });
 
-
 //CHAT
 //-------------------//
-var message;
+//Want to make it to where chat messages have a different color background
+//depending on who sent the message
+$("#send").on("click", function(event) {
+	event.preventDefault();
 
-$("#send").on("click", function() {
-	message = $("#inputChat").val().trim();
-	$("#chatwindow").append("<p class='chatText'>" + message + "</p>");
-	$("#inputChat").val("");
+	var message = $("#inputChat").val().trim();
+
+	var newMessage = {
+		content: message,
+	};
+
+	database.ref().push(newMessage);
+
+	console.log(newMessage.content);
+});
+
+database.ref().on("child_added", function(childSnapshot, PrevChildKey) {
+
+	console.log(childSnapshot.val());
+
+
+//make first two messages that appear welcome player one and player two as they enter
+
+	var newMessage = childSnapshot.val().content;
+
+	console.log(newMessage)
+
+	$("#chatwindow").append("<p class='chatText'>" + newMessage + "</p>");
 	$("#chatwindow").animate({
 		scrollTop: $('#chatwindow .chatText:last-child').position().top
 	}, 'slow');
-});
+})
 
 //FUNCTIONS 
 //--------------------//	
@@ -230,8 +297,7 @@ function updateScoreP1() {
 		Losses: P1losses,
 	}
 
-	database.ref().push(Player1);
-
+	connectionRef1.push(Player1);
 };
 
 function updateScoreP2() {
@@ -241,7 +307,7 @@ function updateScoreP2() {
 		Losses: P2losses,
 	}
 
-	database.ref().push(Player2);
+	connectionRef2.push(Player2);
 };
 
 function updateScoresAll() {
@@ -249,11 +315,12 @@ function updateScoresAll() {
 	updateScoreP2();
 };
 
-//CREATE FUNCTION FOR A TIMER THAT WILL WAIT TWO SECONS AFTER P2 MAKES CHOICE THEN
-//RESET WAITMESSAGE TO P1 It's your turn
-//RESET BATTLEBOARD TO
-	//results = ""
-	//P1contender = ""
-	//P2contender = ""
-	//hide P2weapons
-	//SEND SNAPSHOT of reset screen
+function reset() {
+	$("#waitMessage").text(P1name + ", it's your turn!")
+	$("#results").text("");
+	$("#P1contender").text("");
+	$("#P2contender").text("");
+	$("#P2weapons").hide("");
+};
+
+
