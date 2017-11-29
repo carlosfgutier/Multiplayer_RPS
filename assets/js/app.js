@@ -67,53 +67,68 @@ $(document).ready(function(){
 	$(".losses").hide();
 });
 
-//P1 ENTERS FUNCTION
+//P1 ENTERS
 $("#buttonP1").on("click", function() {
 	if ($("#inputP1").val().trim() != "") {
-		
-		//create name for p1
+
 		P1name = $("#inputP1").val().trim();
-
-		$("#inputP1").hide();
-		$("#buttonP1").hide();
-
-		$("#inputP2").show();
-		$("#buttonP2").show();
-
-		$("#welcomeMessage").text("Welcome " + P1name + "!");
-		$("#waitMessage").text("Please wait for an opponent");		
+		$(".P1").text(P1name);	
 	}
-
 	connectedRef.on("value", function(snap) {
 
 		if (snap.val()) {
 			con = connectionRef1.push(true);
 			con.onDisconnect().remove();
 			playerInfo1.onDisconnect().remove();
-			//update score, player name and push to firebase
 			updateScoreP1();
 		}
 	});
-
-	// GRAB P1 NAME FROM DATABASE AND ADD TO HTML
-	playerInfo1.on("value", function(snap) {
-		console.log(snap.val().Name)
+});
+// SNAPSHOT1
+playerInfo1.on("value", function(snap) {
+	if (snap.val() && snap.val().Name) {
+		
 		playerName1 = (snap.val().Name);
-		$(".P1").text(playerName1);
-	});
+		$(".P1").text(playerName1);		
+		
+		$("#inputP1").hide();
+		$("#buttonP1").hide();		
+		
+		$("#inputP2").show();
+		$("#buttonP2").show();
+		
+		$("#welcomeMessage").text("Welcome " + playerName1 + "!");
+		$("#waitMessage").text("Please wait for an opponent");	
+	}
 });
 
 //P2 ENTERS
 $("#buttonP2").on("click", function() {
-	if ($("#inputP2").val().trim() != "") {
-		
-		//create name for p2
+	if ($("#inputP2").val().trim() != "") {	
+
 		P2name = $("#inputP2").val().trim();
 		$(".P2").text(P2name);
+	}
+	connectedRef.on("value", function(snap) {
 
+		if (snap.val()) {
+			con = connectionRef2.push(true);
+			con.onDisconnect().remove();
+			playerInfo2.onDisconnect().remove();
+			updateScoreP2();
+		}
+	});
+});
+//GRAB P2 NAME FROM DATABASE AND ADD TO HTML
+playerInfo2.on("value", function(snap) {
+	if (snap.val() && snap.val().Name) {
+
+		playerName2 = (snap.val().Name);
+		$(".P2").text(playerName2);		
+		
 		$("#inputP2").hide();
 		$("#buttonP2").hide();
-
+	
 		$(".weapons1").show();
 		$(".wins").show();
 		$(".losses").show();
@@ -127,26 +142,7 @@ $("#buttonP2").on("click", function() {
 		$("#welcomeMessage").text("Welcome " + P1name + " and " + P2name + "!");
 		$("#waitMessage").text(P1name + " you pick first");
 	}
-
-	connectedRef.on("value", function(snap) {
-
-		if (snap.val()) {
-			con = connectionRef2.push(true);
-			con.onDisconnect().remove();
-			playerInfo2.onDisconnect().remove();
-			updateScoreP2();
-		}
-	});
-
-	//GRAB P2 NAME FROM DATABASE AND ADD TO HTML
-	var playerName2 = database.ref("/connection2/playerInfo2")
-	
-	playerName2.on("value", function(snap) {
-		console.log(snap.val().Name);
-		$(".P2").text(snap.val().Name);
-	});
 });
-
 //ROCK, PAPER, SCISSORS
 //---------------------//
 var contender1;
