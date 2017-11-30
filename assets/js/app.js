@@ -20,7 +20,7 @@ var connectionRef2 = database.ref("/connection2");
 
 //FIREBASE
 var playerInfo1 = database.ref("/connection1/playerInfo1");
-var playerInfo2 = database.ref("connection2/playerInfo2");
+var playerInfo2 = database.ref("/connection2/playerInfo2");
 
 var connectedRef = database.ref(".info/connected");
 var con;
@@ -34,6 +34,9 @@ var P1losses = 0;
 
 var P2wins = 0;
 var P2losses = 0;
+
+var choice1 = database.ref("/connection1/choice1");
+var choice2 = database.ref("/connection2/choice2");
 
 var rock = $("#rock1").attr("value");
 var paper = $("#paper1").attr("value");
@@ -72,7 +75,8 @@ $("#buttonP1").on("click", function() {
 	if ($("#inputP1").val().trim() != "") {
 
 		P1name = $("#inputP1").val().trim();
-		$(".P1").text(P1name);	
+		$(".P1").text(P1name);
+		$(".weapons1").show();	
 	}
 	connectedRef.on("value", function(snap) {
 
@@ -96,7 +100,7 @@ playerInfo1.on("value", function(snap) {
 		
 		$("#inputP2").show();
 		$("#buttonP2").show();
-		
+
 		$("#welcomeMessage").text("Welcome " + playerName1 + "!");
 		$("#waitMessage").text("Please wait for an opponent");	
 	}
@@ -129,7 +133,6 @@ playerInfo2.on("value", function(snap) {
 		$("#inputP2").hide();
 		$("#buttonP2").hide();
 	
-		$(".weapons1").show();
 		$(".wins").show();
 		$(".losses").show();
 
@@ -139,25 +142,21 @@ playerInfo2.on("value", function(snap) {
 		$("#winsp2").text("Wins: " + P2wins);
 		$("#lossesp2").text("Losses: " + P2losses);
 
-		$("#welcomeMessage").text("Welcome " + P1name + " and " + P2name + "!");
-		$("#waitMessage").text(P1name + " you pick first");
+		$("#welcomeMessage").text("Welcome " + playerName1 + " and " + playerName2 + "!");
+		$("#waitMessage").text(playerName1 + " you pick first");
 	}
 });
 //ROCK, PAPER, SCISSORS
 //---------------------//
-var contender1;
-var contender2;
-
-var contender1Weapon
-var contender2Weapon
-
 $("#blueSquare").on("click", ".weaponImage", function() {
 	contender1 = $(this).attr("value");
 	console.log(contender1);
 	$("#P1contender").text(contender1);
-	$("#waitMessage").text(P2name + ", it's your turn")
+	$("#waitMessage").text(playerName2 + ", it's your turn")
 	$(".weapons2").show();
 });
+
+
 
 $("#redSquare").on("click", ".weaponImage", function() {
 	contender2 = $(this).attr("value");
@@ -322,11 +321,9 @@ function updateScoresAll() {
 };
 
 function reset() {
-	$("#waitMessage").text(P1name + ", it's your turn!")
+	$("#waitMessage").text(playerName1 + ", it's your turn!")
 	$("#results").text("");
 	$("#P1contender").text("");
 	$("#P2contender").text("");
 	$("#P2weapons").hide("");
 };
-
-
